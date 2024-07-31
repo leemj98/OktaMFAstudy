@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "MFA 인증";
+}
+
+<h2>MFA 인증</h2>
+
+@using (Html.BeginForm("MfaVerify", "Account", FormMethod.Post))
+{
+    @Html.Hidden("stateToken", ViewBag.StateToken as string)
+    @Html.Hidden("factorId", ViewBag.FactorId as string)
+
+<div>
+    <label for="passCode">코드:</label>
+    <input type="text" id="passCode" name="passCode" required />
+</div>
+
+<button type="submit">MFA 인증</button>
+
+    if (ViewBag.ErrorMessage != null)
+    {
+<div style="color:red;">
+    <p>@ViewBag.ErrorMessage</p>
+</div>
+    }
+}

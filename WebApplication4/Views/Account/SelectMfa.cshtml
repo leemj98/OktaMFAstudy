@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "MFA 선택";
+}
+
+<h2>MFA 선택</h2>
+
+<p>사용할 MFA 방법을 선택해주세요:</p>
+
+@using (Html.BeginForm("SelectMfa", "Account", FormMethod.Post))
+{
+    @Html.Hidden("stateToken", ViewBag.StateToken as string)
+
+    <div>
+        <label for="factorId">MFA 방법:</label>
+        <select id="factorId" name="factorId">
+            @foreach (var factor in ViewBag.Factors)
+            {
+                <option value="@factor.id">@factor.factorType</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit">선택</button>
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div style="color:red;">
+        @ViewBag.ErrorMessage
+    </div>
+}

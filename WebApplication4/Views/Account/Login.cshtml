@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<script src="https://global.oktacdn.com/okta-signin-widget/5.4.1/js/okta-sign-in.min.js"></script>
+<link href="https://global.oktacdn.com/okta-signin-widget/5.4.1/css/okta-sign-in.min.css" type="text/css" rel="stylesheet" />
+
+<div id="okta-login-container"></div>
+
+<script>
+    var oktaSignIn = new OktaSignIn({
+        baseUrl: "https://dev-36728140.okta.com",
+        clientId: "0oaim6zknxnkLtt7v5d7",
+        authParams: {
+            issuer: "https://dev-36728140.okta.com/oauth2/default",
+            responseType: ['id_token', 'token'],
+            display: 'page'
+        }
+    });
+
+    oktaSignIn.renderEl(
+        { el: '#okta-login-container' },
+        function success(res) {
+            if (res.status === 'SUCCESS') {
+                res.session.setCookieAndRedirect('/');
+            }
+        },
+        function error(err) {
+            console.log('Login error:', err);
+        }
+    );
+</script>
